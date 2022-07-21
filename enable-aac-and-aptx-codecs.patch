@@ -1,0 +1,42 @@
+diff --git a/debian/control b/debian/control
+index 7d4d1a1..82ec4b6 100644
+--- a/debian/control
++++ b/debian/control
+@@ -11,6 +11,8 @@ Build-Depends: debhelper-compat (= 13),
+                libavahi-client-dev,
+                libbluetooth-dev,
+                libdbus-1-dev,
++               libfdk-aac-dev,
++               libfreeaptx-dev,
+                libglib2.0-dev (>= 2.32.0),
+                libgstreamer-plugins-base1.0-dev,
+                libgstreamer1.0-dev,
+@@ -35,7 +36,6 @@ Build-Depends: debhelper-compat (= 13),
+                pkg-config (>= 0.22),
+                python3-docutils,
+                systemd [linux-any]
+-Build-Conflicts: libfdk-aac-dev
+ Standards-Version: 4.6.0
+ Vcs-Browser: https://salsa.debian.org/utopia-team/pipewire
+ Vcs-Git: https://salsa.debian.org/utopia-team/pipewire.git
+diff --git a/debian/rules b/debian/rules
+index f6b9375..c84c9d9 100755
+--- a/debian/rules
++++ b/debian/rules
+@@ -30,9 +30,7 @@ override_dh_auto_configure:
+ 		-Daudiotestsrc=enabled \
+ 		-Dauto_features=enabled \
+ 		-Davahi=enabled \
+-		-Dbluez5-codec-aac=disabled \
+-		-Dbluez5-codec-aptx=disabled \
+		-Dbluez5-codec-ldac=$(BLUEZ5_CODEC_LDAC) \
+ 		-Dlibcamera=disabled \
+ 		-Ddocs=$(DOCS) \
+ 		-Dffmpeg=disabled \
+@@ -85,4 +82,6 @@ override_dh_shlibdeps-arch:
+ 	dh_shlibdeps \
+ 		--remaining-packages \
+ 		-l/usr/lib/$(DEB_HOST_MULTIARCH)/pipewire-0.3 \
++		-- \
++		-Ldebian/pipewire-audio-client-libraries.shlibs.local \
+ 		$(NULL)
