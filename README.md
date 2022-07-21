@@ -3,6 +3,15 @@
 ## Getting Started
 Pipewire is partially pre-installed in Ubuntu 22.04, and it can replace PulseAudio using [this tutorial](https://ubuntuhandbook.org/index.php/2022/04/pipewire-replace-pulseaudio-ubuntu-2204/).
 
+### Prerequisites
+Add universe and multiverse repositories (needed for codecs).
+
+```
+sudo add-apt-repository universe
+sudo add-apt-repository multiverse
+sudo apt update
+```
+
 ### Installation
 The .deb package can be downloaded in the releases section.
 
